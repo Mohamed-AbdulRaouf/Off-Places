@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func launchScreen() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let navigationController = true ? // add isAppFirstLaunch() insted of true
+        let navigationController = isAppFirstLaunch() ?
             UINavigationController(rootViewController: storyboard.instantiateViewController(withIdentifier: "MapView") as! MapView)
             : UINavigationController(rootViewController: storyboard.instantiateViewController(withIdentifier: "SavedLocationsView") as! SavedLocationsView)
         navigationController.isNavigationBarHidden = true

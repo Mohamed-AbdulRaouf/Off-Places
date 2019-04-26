@@ -18,7 +18,7 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     let mapView = MGLMapView()
     let CAIRO_LATITUDE = 30.0444
     let CAIRO_LONGITUDE = 31.2357
-    var currentLocation: CLLocation!
+    var locationName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
-        
         mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.styleURL = MGLStyle.streetsStyleURL
@@ -57,9 +56,11 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
         let marker = MGLPointAnnotation()
         marker.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapView.addAnnotation(marker)
-        
-        currentLocation = CLLocation(latitude: CAIRO_LATITUDE, longitude: CAIRO_LONGITUDE)
-        
+
+        getLocationName(CLLocation(latitude: latitude, longitude: longitude)) { (name) in
+            self.locationName = name
+        }
+
         view.insertSubview(mapStyle, aboveSubview: mapView)
         view.insertSubview(saveButton, aboveSubview: mapView)
     }
@@ -85,25 +86,21 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-    func getLocationName(_ location: CLLocation) -> String {
-        var x = ""
-        let locon = CLLocation(latitude: 40.730610, longitude:  -73.935242) // <- New York
-        CLGeocoder().reverseGeocodeLocation(locon) { (placemarks, error) in
+    func getLocationName(_ location: CLLocation, completionHandler: @escaping (String) -> Void) {
+        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
             placemarks?.forEach { (placemark) in
-                
-                if let city = placemark.locality { print(city) }
+                if let city = placemark.locality {
+                    completionHandler(city)
+                }
             }
         }
-        return x
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToSavedPlaces" {
             if let vc = segue.destination as? SavedLocationsView {
-                let x = getLocationName(currentLocation)
-                vc.currentPlace = "\(x)"
+                vc.currentPlace = locationName
             }
         }
-        
     }
 }

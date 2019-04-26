@@ -10,7 +10,7 @@ import UIKit
 
 class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var currentPlace: String!
+    var currentPlace: String?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -18,7 +18,7 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "userLocationCell", for: indexPath) as? UserLocationCell {
-            cell.configer(currentPlace)
+            cell.configer(currentPlace ?? "")
             return cell
         }
         return UITableViewCell()
@@ -26,5 +26,9 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    @IBAction func openMapIsPressed(_ sender: UIButton) {
+        self.dismiss(animated: true)
     }
 }
