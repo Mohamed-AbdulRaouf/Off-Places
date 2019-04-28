@@ -13,7 +13,7 @@
         <!--Saved Locations View-->
         <scene sceneID="SeP-Fg-Kp6">
             <objects>
-                <viewController storyboardIdentifier="SavedLocationsView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rVt-OJ-1ff" customClass="SavedLocationsView" customModule="MapLocator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedLocationsView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rVt-OJ-1ff" customClass="SavedLocationsView" customModule="Off_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M7I-a6-6gl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,12 +24,12 @@
                                 <color key="textColor" red="0.97299999999999998" green="0.32900000000000001" blue="0.29399999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-2D-4kj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-2D-4kj">
                                 <rect key="frame" x="0.0" y="66.5" width="375" height="600.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.97299999999999998" green="0.32900000000000001" blue="0.29399999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userLocationCell" rowHeight="80" id="4ds-Yq-59J" customClass="UserLocationCell" customModule="MapLocator" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userLocationCell" rowHeight="80" id="4ds-Yq-59J" customClass="UserLocationCell" customModule="Off_Places" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4ds-Yq-59J" id="zNJ-tl-eZq">
@@ -68,7 +68,7 @@
                                 </state>
                                 <connections>
                                     <action selector="openMapIsPressed:" destination="rVt-OJ-1ff" eventType="touchUpInside" id="Xjb-Xo-hiy"/>
-                                    <segue destination="dFf-av-2MU" kind="show" id="CIv-DL-awe"/>
+                                    <segue destination="dFf-av-2MU" kind="show" identifier="ToMap" id="CIv-DL-awe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -89,6 +89,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4iw-mb-sXd"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="3Ad-2D-4kj" id="zEG-mF-Pb8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCJ-rZ-iOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,7 +100,7 @@
         <!--Map View-->
         <scene sceneID="31X-H9-pHV">
             <objects>
-                <viewController storyboardIdentifier="MapView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dFf-av-2MU" customClass="MapView" customModule="MapLocator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dFf-av-2MU" customClass="MapView" customModule="Off_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hf0-RK-JKg" customClass="MGLMapView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

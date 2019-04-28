@@ -14,12 +14,16 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var mapStyle: CustomView!
     
+    typealias Location = (name: String, coordinates: CLLocation)
+
     private var locationManager: CLLocationManager!
+
     let mapView = MGLMapView()
     let CAIRO_LATITUDE = 30.0444
     let CAIRO_LONGITUDE = 31.2357
     var locationName: String!
-    
+    var currentLocation: Location = (name: "Cairo", coordinates: CLLocation(latitude: 30.0444, longitude: 31.2357))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initLocationManager()
@@ -46,6 +50,10 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
+
+        self.currentLocation.coordinates = CLLocation(latitude: latitude, longitude: longitude)
+        getLocationName(currentLocation.coordinates) { self.currentLocation.name = $0}
+
         mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.styleURL = MGLStyle.streetsStyleURL
@@ -56,10 +64,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
         let marker = MGLPointAnnotation()
         marker.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapView.addAnnotation(marker)
-
-        getLocationName(CLLocation(latitude: latitude, longitude: longitude)) { (name) in
-            self.locationName = name
-        }
 
         view.insertSubview(mapStyle, aboveSubview: mapView)
         view.insertSubview(saveButton, aboveSubview: mapView)
@@ -99,7 +103,7 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToSavedPlaces" {
             if let vc = segue.destination as? SavedLocationsView {
-                vc.currentPlace = locationName
+                vc.currentPlace = currentLocation.name
             }
         }
     }
