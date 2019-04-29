@@ -9,15 +9,6 @@
 import UIKit
 import Mapbox
 
-struct Location: Codable {
-    var name: String
-    var coordinates: Coordinates
-}
-
-struct Coordinates: Codable {
-    var latitude, longitude: Double
-}
-
 class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var saveButton: UIButton!
@@ -28,7 +19,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     let mapView = MGLMapView()
     let CAIRO_LATITUDE = 30.0444
     let CAIRO_LONGITUDE = 31.2357
-    var locationName: String!
     var currentLocation = Location(name: "Cairo", coordinates: Coordinates(latitude: 30.0444, longitude: 31.2357))
 
     override func viewDidLoad() {
@@ -57,11 +47,10 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
-
-        self.currentLocation.coordinates = Coordinates(latitude: latitude, longitude: longitude)
         
-        getLocationName(CLLocation(latitude: currentLocation.coordinates.latitude,
-                                   longitude: currentLocation.coordinates.longitude))
+        self.currentLocation.coordinates = Coordinates(latitude: latitude, longitude: longitude)
+        LocationHelper.getLocationName(CLLocation(latitude: currentLocation.coordinates.latitude,
+                                                  longitude: currentLocation.coordinates.longitude))
         { self.currentLocation.name = $0}
         
         mapView.frame = view.bounds
@@ -79,14 +68,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
         view.insertSubview(saveButton, aboveSubview: mapView)
     }
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        return nil
-    }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
-    
     @IBAction func changeMapStyle(_ sender: CustomView) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -97,16 +78,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
             mapView.styleURL = MGLStyle.lightStyleURL
         default:
             mapView.styleURL = MGLStyle.streetsStyleURL
-        }
-    }
-    
-    func getLocationName(_ location: CLLocation, completionHandler: @escaping (String) -> Void) {
-        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
-            placemarks?.forEach { (placemark) in
-                if let city = placemark.locality {
-                    completionHandler(city)
-                }
-            }
         }
     }
 
