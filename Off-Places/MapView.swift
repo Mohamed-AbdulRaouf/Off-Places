@@ -15,8 +15,8 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapStyle: CustomView!
 
     private var locationManager: CLLocationManager!
-
     let mapView = MGLMapView()
+
     let CAIRO_LATITUDE = 30.0444
     let CAIRO_LONGITUDE = 31.2357
     var currentLocation = Location(name: "Cairo", coordinates: Coordinates(latitude: 30.0444, longitude: 31.2357))
@@ -27,7 +27,6 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func initLocationManager() {
-        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
