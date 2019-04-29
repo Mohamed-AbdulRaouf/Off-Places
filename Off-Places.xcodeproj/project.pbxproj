@@ -10,7 +10,6 @@
 		0278D7C52277A5AF0085B2DA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278D7C42277A5AF0085B2DA /* Location.swift */; };
 		0278D7C72277A6290085B2DA /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278D7C62277A6290085B2DA /* LocationHelper.swift */; };
 		0278D7C92277A7440085B2DA /* UserDefultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278D7C82277A7440085B2DA /* UserDefultsHelper.swift */; };
-		0278D7CB2277A7B80085B2DA /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0278D7CA2277A7B70085B2DA /* MapInteractor.swift */; };
 		029272E72273276E001F9B1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029272E62273276E001F9B1D /* AppDelegate.swift */; };
 		029272EC2273276E001F9B1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 029272EA2273276E001F9B1D /* Main.storyboard */; };
 		029272EE22732771001F9B1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 029272ED22732771001F9B1D /* Assets.xcassets */; };
@@ -38,7 +37,6 @@
 		0278D7C42277A5AF0085B2DA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		0278D7C62277A6290085B2DA /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		0278D7C82277A7440085B2DA /* UserDefultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefultsHelper.swift; sourceTree = "<group>"; };
-		0278D7CA2277A7B70085B2DA /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		029272E32273276E001F9B1D /* Off-Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Off-Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		029272E62273276E001F9B1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		029272EB2273276E001F9B1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 				0278D7C82277A7440085B2DA /* UserDefultsHelper.swift */,
 				0278D7C42277A5AF0085B2DA /* Location.swift */,
 				029273062273289A001F9B1D /* MapView.swift */,
-				0278D7CA2277A7B70085B2DA /* MapInteractor.swift */,
 				02927308227328C5001F9B1D /* SavedLocationsView.swift */,
 				0292730A227328F0001F9B1D /* UserLocationCell.swift */,
 				0292730C22732908001F9B1D /* UIHelper.swift */,
@@ -320,7 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0278D7CB2277A7B80085B2DA /* MapInteractor.swift in Sources */,
 				0278D7C92277A7440085B2DA /* UserDefultsHelper.swift in Sources */,
 				02927309227328C5001F9B1D /* SavedLocationsView.swift in Sources */,
 				0292730B227328F0001F9B1D /* UserLocationCell.swift in Sources */,
