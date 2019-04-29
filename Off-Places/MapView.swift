@@ -38,19 +38,23 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status{
         case .denied, .notDetermined, .restricted:
-            initMapView( CAIRO_LATITUDE, CAIRO_LONGITUDE)
+            setCurrentLocation( CAIRO_LATITUDE, CAIRO_LONGITUDE)
         case .authorizedAlways, .authorizedWhenInUse:
-            initMapView( locationManager.location?.coordinate.latitude ?? CAIRO_LATITUDE ,
+            setCurrentLocation( locationManager.location?.coordinate.latitude ?? CAIRO_LATITUDE ,
                          locationManager.location?.coordinate.longitude ?? CAIRO_LONGITUDE)
         }
     }
     
-    func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
-        
+    func setCurrentLocation(_ latitude: Double, _ longitude: Double) {
         self.currentLocation.coordinates = Coordinates(latitude: latitude, longitude: longitude)
         LocationHelper.getLocationName(CLLocation(latitude: currentLocation.coordinates.latitude,
                                                   longitude: currentLocation.coordinates.longitude))
         { self.currentLocation.name = $0}
+        
+        initMapView(latitude, longitude)
+    }
+    
+    func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
         
         mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
