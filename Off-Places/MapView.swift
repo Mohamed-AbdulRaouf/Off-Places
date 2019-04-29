@@ -9,7 +9,14 @@
 import UIKit
 import Mapbox
 
-typealias Location = (name: String, coordinates: CLLocation)
+struct Location: Codable {
+    var name: String
+    var coordinates: Coordinates
+}
+
+struct Coordinates: Codable {
+    var latitude, longitude: Double
+}
 
 class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
@@ -22,7 +29,7 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     let CAIRO_LATITUDE = 30.0444
     let CAIRO_LONGITUDE = 31.2357
     var locationName: String!
-    var currentLocation: Location = (name: "Cairo", coordinates: CLLocation(latitude: 30.0444, longitude: 31.2357))
+    var currentLocation = Location(name: "Cairo", coordinates: Coordinates(latitude: 30.0444, longitude: 31.2357))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +58,12 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
     func initMapView(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
 
-        self.currentLocation.coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        getLocationName(currentLocation.coordinates) { self.currentLocation.name = $0}
-
+        self.currentLocation.coordinates = Coordinates(latitude: latitude, longitude: longitude)
+        
+        getLocationName(CLLocation(latitude: currentLocation.coordinates.latitude,
+                                   longitude: currentLocation.coordinates.longitude))
+        { self.currentLocation.name = $0}
+        
         mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.styleURL = MGLStyle.streetsStyleURL

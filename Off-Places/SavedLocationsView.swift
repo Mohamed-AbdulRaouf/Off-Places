@@ -54,14 +54,19 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 class DataSaver {
-    static var locations = Array<Location>()
+    static var locations = [Location]()
 
     static func addLocation(location: Location) {
         if !(locations.map { $0.name}).contains(location.name) { locations.append(location) }
-        UserDefaults.standard.set(locations, forKey: "SavedLocations")
+        if let encodedLocations = try? JSONEncoder().encode(locations) {
+            UserDefaults.standard.set(encodedLocations, forKey: "SavedLocations")
+        }
     }
     
     static func getLocations() -> [Location] {
-        return UserDefaults.standard.value(forKey: "SavedLocations") as? [Location] ?? []
+        if let decodedLocations = try? JSONDecoder().decode([Location].self, from: UserDefaults.standard.value(forKey: "SavedLocations") as? Data ?? Data()) {
+            return decodedLocations
+        }
+        return locations
     }
 }
