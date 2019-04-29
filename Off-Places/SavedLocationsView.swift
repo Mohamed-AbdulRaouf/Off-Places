@@ -16,7 +16,7 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        savedPlacesList = DataSaver.getLocations().map { $0.name}
+        savedPlacesList = StorageControler.getLocations().map { $0.name}
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

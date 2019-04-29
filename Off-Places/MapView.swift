@@ -80,11 +80,7 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ToSavedPlaces" {
-            if let vc = segue.destination as? SavedLocationsView {
-                DataSaver.addLocation(location: currentLocation)
-            }
-        }
+    @IBAction func saveLocationIsPressed(_ sender: UIButton) {
+        StorageControler.save(location: currentLocation)
     }
 }

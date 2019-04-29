@@ -131,6 +131,7 @@
                                 </constraints>
                                 <state key="normal" image="add"/>
                                 <connections>
+                                    <action selector="saveLocationIsPressed:" destination="dFf-av-2MU" eventType="touchUpInside" id="zye-t6-Rei"/>
                                     <segue destination="rVt-OJ-1ff" kind="presentation" identifier="ToSavedPlaces" id="hHu-Lh-3uP"/>
                                 </connections>
                             </button>

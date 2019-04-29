@@ -8,10 +8,10 @@
 
 import Foundation
 
-class DataSaver {
+class StorageControler {
     static var locations = [Location]()
     
-    static func addLocation(location: Location) {
+    static func save(location: Location) {
         if !(locations.map { $0.name}).contains(location.name) { locations.append(location) }
         if let encodedLocations = try? JSONEncoder().encode(locations) {
             UserDefaults.standard.set(encodedLocations, forKey: "SavedLocations")
