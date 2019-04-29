@@ -11,12 +11,12 @@ import UIKit
 class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var selectedPlace: String?
-    var savedPlacesList: [String]?
+    var selectedPlace: Location?
+    var savedPlacesList: [Location]?
 
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        savedPlacesList = StorageControler.getLocations().map { $0.name}
+        savedPlacesList = StorageControler.getLocations()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,7 +25,7 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "userLocationCell", for: indexPath) as? UserLocationCell {
-            cell.configer(savedPlacesList?[indexPath.row] ?? "")
+            cell.configer(savedPlacesList?[indexPath.row].name ?? "")
             return cell
         }
         return UITableViewCell()
@@ -43,7 +43,7 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToMap" {
             if let vc = segue.destination as? MapView {
-                vc.currentLocation.name = selectedPlace ?? ""
+                vc.currentLocation = selectedPlace!
             }
         }
     }
