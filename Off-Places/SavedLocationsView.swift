@@ -11,23 +11,21 @@ import UIKit
 class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var currentPlace: String?
-    var savedPlacesList = ["a", "b", "c", "D", "E"]
+    var selectedPlace: String?
+    var savedPlacesList: [String]?
 
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        if let currentPlace = currentPlace {
-            savedPlacesList.append(currentPlace)
-        }
+        savedPlacesList = DataSaver.getLocations().map { $0.name}
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedPlacesList.count
+        return savedPlacesList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "userLocationCell", for: indexPath) as? UserLocationCell {
-            cell.configer(savedPlacesList[indexPath.row])
+            cell.configer(savedPlacesList?[indexPath.row] ?? "")
             return cell
         }
         return UITableViewCell()
@@ -38,13 +36,14 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedPlace = savedPlacesList?[indexPath.row]
         self.performSegue(withIdentifier: "ToMap", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToMap" {
             if let vc = segue.destination as? MapView {
-                vc.currentLocation.name = currentPlace ?? "5"
+                vc.currentLocation.name = selectedPlace ?? ""
             }
         }
     }
@@ -54,4 +53,15 @@ class SavedLocationsView: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
+class DataSaver {
+    static var locations = Array<Location>()
 
+    static func addLocation(location: Location) {
+        if !(locations.map { $0.name}).contains(location.name) { locations.append(location) }
+        UserDefaults.standard.set(locations, forKey: "SavedLocations")
+    }
+    
+    static func getLocations() -> [Location] {
+        return UserDefaults.standard.value(forKey: "SavedLocations") as? [Location] ?? []
+    }
+}

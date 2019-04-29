@@ -9,12 +9,12 @@
 import UIKit
 import Mapbox
 
+typealias Location = (name: String, coordinates: CLLocation)
+
 class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var mapStyle: CustomView!
-    
-    typealias Location = (name: String, coordinates: CLLocation)
 
     private var locationManager: CLLocationManager!
 
@@ -103,7 +103,7 @@ class MapView: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToSavedPlaces" {
             if let vc = segue.destination as? SavedLocationsView {
-                vc.currentPlace = currentLocation.name
+                DataSaver.addLocation(location: currentLocation)
             }
         }
     }
